@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<title>HTML Tutorial</title>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.js"></script>
+
+<script>
+console.log(2!='2');
+console.log(3==3);
+
+
+var a=[];
+var b=new Array();
+console.log(typeof a);
+console.log(typeof b);
+console.log(a.constructor);
+console.log(b.constructor);
+// var x=34;
+// console.log((function fun(){
+// 	var y=3;
+// 	console.log('executing fun'+x); //extract outside var
+// 	return y;
+// }) ());
+// (function(){
+// 	 var y=5;
+// })();
+// console.log(y);
+// console.log(x);
+// var arr=['aa', 'bb', 'a', 4, 8, 15, 16, 23, 42];
+// arr.unshift('x');
+// console.log(arr.sort(function(a,b){
+// 	if(a===b)
+// 		return 0;
+// 	if(typeof a===typeof b)
+// 		return a>b?1:-1;
+// 	return typeof a>typeof b?1:-1;
+// }));
+// var s = [
+//     {first: 'Joe',   last: 'Besser'},
+//     {first: 'Moe',   last: 'Howard'},
+//     {first: 'Joe',   last: 'DeRita'},
+//     {first: 'Shemp', last: 'Howard'},
+//     {first: 'Larry', last: 'Fine'},
+//     {first: 'Curly', last: 'Howard'}
+// ];
+// var by=function(name){
+// 	return function(o,p){
+// 		if(typeof o==='object'&&typeof p==='object'&&o&&p){
+// 			var a=o[name];
+// 			var b=p[name];
+
+// 			if(a===b)
+// 				return 0;
+// 			if(typeof a===typeof b)
+// 				return a>b?1:-1;
+// 			return typeof a>typeof b?1:-1;
+
+// 		}
+// 		else{
+// 			throw{
+// 				name:"error",
+// 				message:"expected object when sorting"
+// 			}
+// 		}
+// 	}
+// }
+// var s_f=s.sort(by("first"));
+// console.log(JSON.stringify(s_f));
+
+// 
+var add = function(a, b) {
+    return a + b;
+}
+
+var array = [3, 4];
+console.log(add.apply(null, array))
+    // var _status={status:"ok"};
+    // console.log(Quo.prototype.get_status.apply(_status));
+
+// console.log('Quo: '+new Quo('test'));
+// console.log('Quo: '+Quo('test'));
+
+Function.prototype.method = function(name, func) {
+    this.prototype[name] = func;
+    return this;
+};
+Number.method('integer', function() {
+    return Math[this < 0 ? 'ceil' : 'floor'](this);
+});
+
+Function.method('curry', function() {
+    var slice = Array.prototype.slice,
+        args = slice.apply(arguments),
+        that = this;
+    return function() {
+        // console.log('test:' + args.concat(slice.apply(arguments)));
+        return that.apply(null, args.concat(slice.apply(arguments)));
+    };
+});
+
+var add1 = add.curry(1);
+// console.log(add1);
+
+// console.log(Number.prototype);
+console.log('int: ' + (-10 / 3).integer()); // −3”
+
+var quo = function(status) {
+    return {
+        getStatus: function() {
+            return status;
+        }
+    }
+}
+var quo1 = quo("ok");
+var quo2 = quo("not ok");
+console.log(quo1.getStatus());
+console.log(quo2.getStatus());
+
+var _obj = function(name, age, sex) {
+    return {
+        setName: function(n) {
+            name = n;
+            return this;
+        },
+        setAge: function(a) {
+            age = a;
+            return this;
+        },
+        setSex: function(s) {
+            sex = s;
+            return this;
+        },
+        print: function() {
+            console.log(name + ' ' + age + ' ' + sex);
+        }
+    }
+}
+
+var myObj = _obj('a', 3, 'm');
+myObj.print();
+myObj.setName('b').setAge(4).setSex('f');
+myObj.print();
+console.log("*****");
+
+function Fruit() {
+    this.isEatable = function() {
+        return this.eatable;
+    };
+}
+
+function Apple(eatable, sweet) {
+    this.sweet = sweet;
+    this.eatable = eatable;
+    this.isSweet = function() {
+        return this.sweet;
+    };
+    this.prototype = Fruit.apply(this);
+}
+
+var a = new Apple(true, false);
+
+console.log(a.isEatable()); // Uncaught ReferenceError: eatable is not defined
+//
+// function Fruit() {
+//     this.isEatable = function() {
+//         // return 'a';
+//         return this.eatable;
+//         //console.log(this.eatable);
+//     };
+// }
+
+// function Apple(eatable , sweet) {
+//     this.eatable=eatable;
+//     this.sweet=sweet;
+//     this.isSweet = function() {
+//         return this.sweet;
+//     };
+//     // this.prototype=new Fruit();
+// }
+
+// var a = new Apple(true, false);
+// var fruit=new Fruit();
+// console.log(fruit.isEatable.apply(a));
+
+// console.log(a.isEatable()); // Uncaught ReferenceError: eatable is not defined
+//
+
+
+// var stooge = {
+//     "first-name": "a",
+//     "last-name": "c",
+//     "middle-name":"b"
+// };
+// stooge.nickname = 'Curly';
+// if (typeof Object.create !== 'function') {
+//      Object.create = function (o) {
+//          var F = function () {};
+//          F.prototype = o;
+//          return new F();
+//      };
+// }
+// var another_stooge = Object.create(stooge);
+// another_stooge['first-name'] = 'Harry';
+// another_stooge['middle-name'] = 'Moses';
+// another_stooge.nickname = 'Moe';
+// console.log(another_stooge['first-name']);
+// delete another_stooge['first-name'];
+// console.log(another_stooge['first-name']);
+// delete another_stooge['first-name'];
+// console.log(another_stooge['first-name']);
+
+//  var x=function(){
+//     key:"value"
+//  };
+//  var z=new x();
+// console.log(z.__proto__);
+// console.log(x);
+//console.log(another_stooge['last-name']);
+
+
+// var update=function(param){
+//     //param="new string";
+//     // param.name='b';
+//     param={name:'b',age:'4'};
+// }
+// var str="string";
+// var obj={name:'a',age:'3'};
+
+// update(obj);
+// console.log(obj);
+
+// var undefined='a';
+// var Infinity=9;
+// var NaN='n';
+// var _cats="test";
+// console.log(undefined+' '+Infinity+' '+NaN);
+// console.log('9cats: '+_cats+'\btest');
+// var arr=[];
+
+// console.log(window.performance.memory.usedJSHeapSize);
+// console.log(window.performance.now());
+
+// for(i=0;i<100;i++)
+// {
+//     arr.push(new Object)
+//     if(i==99)
+//     {
+//     console.log(window.performance.memory.usedJSHeapSize);
+//     console.log(window.performance.now());
+//     }
+// }
+
+
+// var input = "vm15@global.tesco.org"
+// console.log(input.replace(/\W/g, '').substring(0, 10));
+// console.log(input);
+
+// var app = angular.module('personApp', ['ui.bootstrap']);
+// app.controller('personCtrl', function($scope) {
+//     $scope.isCollapsed = true;
+//     $scope.persons = [{
+//         name: "John",
+//         age: "40yrs"
+//     }, {
+//         name: "Kevin",
+//         age: "50yrs"
+//     }];
+// });
+// var k = {};
+
+// var tmp=new Array;
+// for(i=0;i<1000;i++){
+//     tmp.push(i);
+// }
+// for(i=0;i<1000;i++){
+//     k['p'+i]=tmp;
+// }
+
+
+// console.log(k);
+
+// console.log(k.p1[0]); // 0
+
+// k.p1[0] = 600;
+
+// console.log(k.p1[0]); //600
+// console.log(k.p2[0]); // 0
+
+// console.log(typeof(k))
+// console.log(typeof(k.p1))
+// var test = {
+//     testObject: {
+//         x: undefined,
+//         y: undefined,
+//         z: undefined
+//     },
+
+//     create: function() {
+//         var that = this;
+
+//         $('body').on('click', 'test', function() {
+//             that.testObject.x = 1;
+//             console.log('test');
+//         });
+//     }
+// }
+
+// test.create();
+
+// console.log("Bj%F6rk");
+// console.log(encodeURI("ö"));
+// console.log('test '+ unescape("%F6"));
+// console.log(decodeURI("%F6"));
+// var str="quick brown fox";
+// console.log(str.split(' ').reverse());
+
+// var str="srab1234a"
+
+// var pattern=/[S|s][R|r][A-z][A-z]\d\d\d\d/;
+// console.log(pattern.test(str));
+// if(pattern.test(str))
+//  console.log('login failed')
+// console.log(reverse_int(123));
+
+// function reverse_int(num) {
+//     var tmp;
+
+//     if (num > 0) {
+//         tmp = num % 10;
+//         // rev = tmp + rev * 10;
+//         console.log((num / 10));
+//         return reverse_int(num / 10) * 10 + tmp;
+
+
+
+
+//     } else {
+//         return 0;
+//     }
+// }
+
+
+// var counter =function(){
+//  var cnt=0;
+//  return function(){
+//      return cnt+=1;
+//  };
+// }
+// var count=new counter();
+// console.log(count());
+// console.log(count());
+// var count1=new counter();
+// console.log(count1());
+// console.log(count1());
+/*
+var z = '';
+console.log('z:' + z);
+var z=2.3;
+console.log('int test: '+(z^0===z));
+// console.log('int test: '+(z%1===0));
+function sayHello2(name) {
+    var text = 'Hello ' + name; // local variable
+    var sayAlert = function() {
+        console.log(text);
+    }
+    return sayAlert;
+}
+
+var aish=sayHello2('aish');
+var temp=sayHello2('temp');
+aish();
+temp();
+(function(){
+  var a = b = 3;
+})();
+
+console.log("a defined? " + (typeof a !== 'undefined'));
+console.log("b defined? " + (typeof b !== 'undefined'));
+
+var myObject = {
+    foo: "bar",
+    func: function() {
+        var self = this;
+        console.log("outer func:  this.foo = " + this.foo);
+        console.log("outer func:  self.foo = " + self.foo);
+        (function() {
+            console.log("inner func:  this.foo = " + this.foo);
+            console.log("inner func:  self.foo = " + self.foo);
+        }());
+    }
+};
+myObject.func();
+*/
+// console.log(1 + "2" + "2");
+// console.log(1 + +"2" + "2");
+// console.log(1 + -"1" + "2");
+// console.log(-"1" + "1" + "2");
+// console.log("A" - "B" + "2");
+// console.log("A" - "B" + 2);
+// console.log('--------');
+
+
+// var list = [];
+// for (i = 1; i <= 10000;i++) {
+//     list.push(i);
+// }
+
+// var nextListItem = function() {
+//     var item = list.pop();
+//     if (item) {
+//      console.log('item: ' + item);
+//      setTimeout(nextListItem(),0);  
+//      //no call stack only recursion
+//      //handled by event loop
+//     }
+// };
+
+// console.log(list.pop());
+// console.log('--------');
+// var add = (function () {
+//  console.log('self invoked: '+this);
+//     var counter = 0;
+//     counter++;
+//     return function () {console.log('this: '+this);return counter += 1;}
+// })();
+
+// console.log(add());
+// console.log(add());
+// console.log(add());
+// console.log('this: '+this.counter);
+// console.log('--------');
+// for (var i = 0; i < 5; i++) {
+//  timeout(i);
+
+// }
+// function timeout(i)
+// {
+//  setTimeout(function() { console.log(i); }, i * 1000 );
+// }
+// console.log("0 || 1 = "+(0 || 1));
+// console.log("1 || 2 = "+(1 || 2));
+// console.log("0 && 1 = "+(0 && 1));
+// console.log("1 && 2 = "+(1 && 2));
+
+// console.log(false == '0')
+// console.log(false === '0')
+
+// var a={},
+//     b={key:'b'},
+//     c={key:'c'};
+
+// a[b]=123;
+// a[c]=456;
+
+// console.log(a[b]);
+
+// console.log((function f(n){return ((n > 1) ? n * f(n-1) : n)})(10));
+
+// (function(x) {
+//     return (function(y) {
+//         console.log(x);
+//     })(2)
+// })(1);
+
+// var hero = {
+//     _name: 'John Doe',
+//     getSecretIdentity: function (){
+//         return this._name;
+//     }
+// };
+
+// var stoleSecretIdentity = hero.getSecretIdentity();
+
+// console.log(stoleSecretIdentity);
+// console.log(hero.getSecretIdentity());
+// var counter={
+//  // i:0,
+//  init:function(a){this.i=a;console.log('init');},
+//  inc: function(){this.i++;console.log('inc : '+this.i);}
+// };
+
+// counter.init(5);
+// counter.inc();
+// counter.inc();
+// counter.inc();
+// counter.init(15);
+// counter.inc();
+// //console.log('i: '+i); //i private to counter
+// console.log('i: '+counter.i);
+// console.log('--------');
+
+/*
+function Person(n, race) {
+    console.log('in person')
+    this.constructor.population++;
+    this.n = n;
+    this.clothing = "nothing/naked";
+}
+
+Person.population = 0;
+Person.prototype.beCool = function() {
+    this.clothing = "Khakhis";
+};
+Person.prototype.legs = 2;
+
+(function() {
+    var p1 = new Person('a', 'a');
+    var p2 = new Person('b', 'b');
+
+    console.log(Person.population);
+    console.log(p1.n);
+    console.log(p1.clothing);
+    p1.beCool();
+    console.log(p1.clothing);
+    console.log(p1.legs);
+
+})();
+
+var Vehicle = function() {
+    console.log('vehicle');
+}
+
+var vehicle = new Vehicle();
+
+function StupidClass() {
+    var foo = "internal";
+    this.foo = "external";
+    // this.yell=function(){ alert("Internal foo is "+foo+"\nExternal foo is "+this.foo) } 
+}
+
+var stupidClass = new StupidClass();
+*/
+// stupidClass.yell();
+</script>
+<!-- <body ng-app="personApp" ng-controller="personCtrl">
+    <h1>This is a heading</h1>
+    <p>This is a paragraph.</p>
+    <i class="fa fa-circle"></i>
+    <tr ng-repeat-start="person in persons">
+        <td>
+            <a href="#" ng-click="isCollapsed = !isCollapsed">{{person.name}}</a>
+        </td>
+        <td>
+            {{person.age}}
+        </td>
+    </tr>
+    <tr collapse="isCollapsed" ng-repeat-end="">
+        <td colspan="3">
+            <h3>Details about {{person.name}}</h3>
+            <p>Some details about {{person.name}}, {{person.age}}</p>
+        </td>
+    </tr>
+</body>
+ -->
+
+<body>
+</body>
+
+</html>
