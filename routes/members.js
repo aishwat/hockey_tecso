@@ -3,12 +3,14 @@ var idvalidator = require('mongoose-id-validator');
 
 var members = {
     get: function(req, res) {
-        Member.find({}, function(err, docs) {
-            if (err)
-                console.log(err)
-            else
-                res.send(docs);
-        })
+        Member.find({})
+            .populate('devices')
+            .exec(function(err, docs) {
+                if (err)
+                    console.log(err)
+                else
+                    res.send(docs);
+            })
     },
     getByKeyVal: function(req, res) {
         var key = req.params.key;
@@ -41,19 +43,18 @@ var members = {
     upsert: function(req, res) {
 
         var mem = new Member({
-            _id: req.body._id,
-            name: req.body.name,
-            token: req.body.token,
-            devices:req.body.devices
-        })
-        // mem.devices = req.body.devices
+                _id: req.body._id,
+                name: req.body.name,
+                token: req.body.token,
+                devices: req.body.devices
+            })
+            // mem.devices = req.body.devices
 
         mem.validate(function(err) {
-            if (err){
+            if (err) {
                 console.log(err)
                 res.send('invalid device id');
-            }
-            else {
+            } else {
                 var member = {
                     _id: req.body._id,
                     name: req.body.name,

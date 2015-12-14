@@ -4,12 +4,15 @@ var Team = require('./Models').Team;
 
 var teams = {
     get: function(req, res) {
-        Team.find({}, function(err, docs) {
-            if (err)
-                console.log(err)
-            else
-                res.send(docs);
-        })
+        Team.find({})
+            .populate('appMemberRoles.app')
+            .populate('appMemberRoles.member')
+            .exec(function(err, docs) {
+                if (err)
+                    console.log(err)
+                else
+                    res.send(docs);
+            })
     },
     getByKeyVal: function(req, res) {
         var key = req.params.key;
