@@ -14,18 +14,63 @@ var deviceSchema = new Schema({
 });
 
 var memberSchema = new Schema({
-    _id:String, //email or tpx
+    _id: String, //email or tpx
     name: String,
     token: String,
-    devices: [{type: Number, ref: 'Device'}]
+    devices: [{
+        type: Number,
+        ref: 'Device'
+    }]
 });
 memberSchema.plugin(idvalidator);
 
+var appSchema = new Schema({
+    //default
+    name: String,
+    platform: String,
+    releaseType: String,
+    minOS: String,
+
+    apps: [{
+        version: String,
+        build: String,
+        lastUpdated: String,
+        size: String,
+        note: String
+    }]
+});
+
+var teamSchema = new Schema({
+    // _id: String, //name (unique names)
+    name: String,
+    tag: String,
+    appMemberRoles: [{
+        app: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'App'
+        },
+        member: {
+            type: String,
+            ref: 'Member'
+        },
+        role: {
+            type: String
+        }
+    }]
+
+});
+teamSchema.plugin(idvalidator);
+
+
 var Device = mongoose.model('Device', deviceSchema);
 var Member = mongoose.model('Member', memberSchema);
+var App = mongoose.model('App', appSchema);
+var Team = mongoose.model('Team', teamSchema);
 
 
-module.exports ={
-  Device:Device,
-  Member:Member
-} 
+module.exports = {
+    Device: Device,
+    Member: Member,
+    App: App,
+    Team: Team
+}

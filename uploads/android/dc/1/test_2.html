@@ -8,37 +8,90 @@
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.22/require.js"></script>
-
 <script>
-console.log(2!='2');
-console.log(3==3);
+var str = ['i', 'i', 'c', 'c', 'd'];
+var obj = {};
+
+function isPalindrome() {
+    console.log(str);
+    cnt = 0;
+    for (i = 0; i < str.length; i++) {
+        if (!obj.hasOwnProperty(str[i])) {
+            obj[str[i]] = 0;
+            console.log('in outer for:' + i + ' ' + obj[str[i]]);
+            for (j = i; j < str.length; j++) {
+                if (obj.hasOwnProperty(str[j])) {
+                    obj[str[i]]++;
+                    console.log('incrementing' + i + ' ' + j);
+                }
+            }
+        }
+    }
+}
+isPalindrome();
+setTimeout(function() {
+    console.log(obj);
+    var length = Object.keys(obj).length;
+    console.log(length);
+    if (length % 2 === 0) { //even
+        for (key in obj) {
+            if (obj[key] % 2 !== 0){
+                console.log('not a palindrome');
+                return;
+            }
+
+        }
+    }
+    if (length % 2 !== 0) { //even
+        var count=0;
+        for (key in obj) {
+            if (obj[key] % 2 !== 0)
+                count++;
+
+        }
+        if(count>1){
+            console.log('not a palindrome');
+            return;
+        }
+    }
+    console.log('palindrome');
+
+}, 10)
+
+// function calculateSum() {
+//     var sum=0;
+
+//     if(arguments[0]&&arguments[0] instanceof Array)
+//         arguments=arguments[0];
+//     for (var i = 0; i < arguments.length; i++) {
+//         sum+=arguments[i];
+//     }
+//     return sum;
+// }
+
+// console.log("sum: "+calculateSum(1,2,3,4));
+// console.log("sum: "+calculateSum([1,2,3,4]));
 
 
-var a=[];
-var b=new Array();
-console.log(typeof a);
-console.log(typeof b);
-console.log(a.constructor);
-console.log(b.constructor);
 // var x=34;
 // console.log((function fun(){
-// 	var y=3;
-// 	console.log('executing fun'+x); //extract outside var
-// 	return y;
+//  var y=3;
+//  console.log('executing fun'+x); //extract outside var
+//  return y;
 // }) ());
 // (function(){
-// 	 var y=5;
+//   var y=5;
 // })();
 // console.log(y);
 // console.log(x);
 // var arr=['aa', 'bb', 'a', 4, 8, 15, 16, 23, 42];
 // arr.unshift('x');
 // console.log(arr.sort(function(a,b){
-// 	if(a===b)
-// 		return 0;
-// 	if(typeof a===typeof b)
-// 		return a>b?1:-1;
-// 	return typeof a>typeof b?1:-1;
+//  if(a===b)
+//      return 0;
+//  if(typeof a===typeof b)
+//      return a>b?1:-1;
+//  return typeof a>typeof b?1:-1;
 // }));
 // var s = [
 //     {first: 'Joe',   last: 'Besser'},
@@ -49,25 +102,25 @@ console.log(b.constructor);
 //     {first: 'Curly', last: 'Howard'}
 // ];
 // var by=function(name){
-// 	return function(o,p){
-// 		if(typeof o==='object'&&typeof p==='object'&&o&&p){
-// 			var a=o[name];
-// 			var b=p[name];
+//  return function(o,p){
+//      if(typeof o==='object'&&typeof p==='object'&&o&&p){
+//          var a=o[name];
+//          var b=p[name];
 
-// 			if(a===b)
-// 				return 0;
-// 			if(typeof a===typeof b)
-// 				return a>b?1:-1;
-// 			return typeof a>typeof b?1:-1;
+//          if(a===b)
+//              return 0;
+//          if(typeof a===typeof b)
+//              return a>b?1:-1;
+//          return typeof a>typeof b?1:-1;
 
-// 		}
-// 		else{
-// 			throw{
-// 				name:"error",
-// 				message:"expected object when sorting"
-// 			}
-// 		}
-// 	}
+//      }
+//      else{
+//          throw{
+//              name:"error",
+//              message:"expected object when sorting"
+//          }
+//      }
+//  }
 // }
 // var s_f=s.sort(by("first"));
 // console.log(JSON.stringify(s_f));
@@ -78,9 +131,9 @@ var add = function(a, b) {
 }
 
 var array = [3, 4];
-console.log(add.apply(null, array))
-    // var _status={status:"ok"};
-    // console.log(Quo.prototype.get_status.apply(_status));
+// console.log(add.apply(null, array))
+// var _status={status:"ok"};
+// console.log(Quo.prototype.get_status.apply(_status));
 
 // console.log('Quo: '+new Quo('test'));
 // console.log('Quo: '+Quo('test'));
@@ -107,7 +160,7 @@ var add1 = add.curry(1);
 // console.log(add1);
 
 // console.log(Number.prototype);
-console.log('int: ' + (-10 / 3).integer()); // −3”
+// console.log('int: ' + (-10 / 3).integer()); // −3”
 
 var quo = function(status) {
     return {

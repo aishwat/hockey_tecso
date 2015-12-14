@@ -12,6 +12,7 @@
     "express": "~4.13.1",
     "formidable": "^1.0.17",
     "jade": "~1.11.0",
+    "mkdirp": "^0.5.1",
     "mongoose": "^4.2.9",
     "mongoose-id-validator": "^0.1.10",
     "morgan": "~1.6.1",
